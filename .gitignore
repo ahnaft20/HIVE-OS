@@ -45,3 +45,6 @@ backend/generated_projects/*
 # Misc
 *.tmp
 *.bak
+
+# Runtime memory (added exactly as requested)
+backend/memory/projects/latest_project.json
