@@ -39,6 +39,7 @@ from core.bug_fixer import BugFixer
 from core.git_manager import GitManager
 from core.docker_manager import DockerManager
 from core.deployment_manager import DeploymentManager
+from core.expert_router import ExpertRouter   # Added exactly as requested
 
 
 PROJECT_NAME = "default_project"
@@ -79,6 +80,12 @@ def orchestrate(user_prompt):
     router = ModelRouter()
 
     factory = AgentFactory()
+
+    expert_router = ExpertRouter()          # Added exactly as requested
+
+    experts = expert_router.build_team(     # Added exactly as requested
+        user_prompt,
+    )
 
     # ==================== NEW INSTANCES (added exactly as you asked) ====================
     team_manager = TeamManager()
@@ -170,45 +177,68 @@ def home():
 
     stream.push("Leader", "Docker environment generated.")
 
-    # ==================== RUN AGENTS ====================
+    # ==================== RUN AGENTS (PARALLEL EXECUTION - ThreadPoolExecutor) ====================
+    with ThreadPoolExecutor(max_workers=6) as executor:
 
-    research = execute_with_retry(
-        "Research",
-        research_agent,
-        3,
-        1,
-        user_prompt,
-    )
+        research_future = executor.submit(
+            execute_with_retry,
+            "Research",
+            research_agent,
+            3,
+            1,
+            user_prompt,
+        )
 
-    engineer = execute_with_retry(
-        "Engineer",
-        engineer_agent,
-        3,
-        1,
-        user_prompt,
-        research,
-    )
+        engineer_future = executor.submit(
+            execute_with_retry,
+            "Engineer",
+            engineer_agent,
+            3,
+            1,
+            user_prompt,
+            "",
+        )
 
-    designer = execute_with_retry(
-        "Designer",
-        designer_agent,
-        3,
-        1,
-        user_prompt,
-        research,
-        engineer,
-    )
+        designer_future = executor.submit(
+            execute_with_retry,
+            "Designer",
+            designer_agent,
+            3,
+            1,
+            user_prompt,
+            "",
+            "",
+        )
 
-    documentation = execute_with_retry(
-        "Documentation",
-        documentation_agent,
-        3,
-        1,
-        user_prompt,
-        research,
-        engineer,
-        designer,
-    )
+        documentation_future = executor.submit(
+            execute_with_retry,
+            "Documentation",
+            documentation_agent,
+            3,
+            1,
+            user_prompt,
+            "",
+            "",
+            "",
+        )
+
+        qa_future = executor.submit(
+            execute_with_retry,
+            "QA",
+            qa_agent,
+            3,
+            1,
+            user_prompt,
+            "",
+            "",
+            "",
+        )
+
+        research = research_future.result()
+        engineer = engineer_future.result()
+        designer = designer_future.result()
+        documentation = documentation_future.result()
+        qa = qa_future.result()
 
     debate = execute_with_retry(
         "Debate",
@@ -220,21 +250,14 @@ def home():
         designer,
     )
 
-    qa = execute_with_retry(
-        "QA",
-        qa_agent,
-        3,
-        1,
-        user_prompt,
-        research,
-        engineer,
-        designer,
-    )
-
     # ==================== DISABLED SECTIONS (Reflection, Peer Review, Replanner) ====================
     # reflection = execute_with_retry(...)
     # peer_review = execute_with_retry(...)
     # replan = execute_with_retry(...)
+
+    reflection = None
+    peer_review = None
+    replan = None
 
     # ==================== REPLACE LEADER CALL ====================
     final = execute_with_retry(
