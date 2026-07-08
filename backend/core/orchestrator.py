@@ -342,7 +342,7 @@ def home():
             ".github/workflows/",
             ".env.example",
         ],
-        "execution_logs": executor.history(),
+        "execution_logs": [],
         "testing": tester.history(),
         "bug_fixing": [
             "Automatic formatting check completed."
