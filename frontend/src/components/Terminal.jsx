@@ -6,46 +6,7 @@ export default function Terminal({ logs = [] }) {
 
   useEffect(() => {
 
-    if (logs.length > 0) {
-      setDisplayLogs(logs);
-      return;
-    }
-
-    const demoLogs = [
-      "[Research] Starting mission...",
-      "✔ Research Complete",
-      "[Engineer] Designing system...",
-      "✔ Architecture Generated",
-      "[Designer] Creating UI...",
-      "✔ UI Completed",
-      "[Documentation] Writing documentation...",
-      "✔ Documentation Ready",
-      "[QA] Running review...",
-      "✔ QA Passed",
-      "[CEO] Final approval...",
-      "✔ Mission Approved",
-    ];
-
-    setDisplayLogs([]);
-
-    let index = 0;
-
-    const timer = setInterval(() => {
-
-      setDisplayLogs((prev) => [
-        ...prev,
-        demoLogs[index],
-      ]);
-
-      index++;
-
-      if (index >= demoLogs.length) {
-        clearInterval(timer);
-      }
-
-    }, 450);
-
-    return () => clearInterval(timer);
+    setDisplayLogs(logs);
 
   }, [logs]);
 
@@ -54,23 +15,31 @@ export default function Terminal({ logs = [] }) {
     <div className="rounded-2xl border border-slate-700 bg-black p-5">
 
       <h3 className="text-green-400 font-semibold mb-4">
-
         Live Terminal
-
       </h3>
 
       <div className="font-mono text-sm space-y-2 max-h-56 overflow-y-auto">
 
-        {displayLogs.map((log, index) => (
+        {displayLogs.length === 0 ? (
 
-          <div
-            key={index}
-            className="text-green-400"
-          >
-            {log}
+          <div className="text-slate-500">
+            Waiting for execution...
           </div>
 
-        ))}
+        ) : (
+
+          displayLogs.map((log, index) => (
+
+            <div
+              key={index}
+              className="text-green-400"
+            >
+              {log}
+            </div>
+
+          ))
+
+        )}
 
       </div>
 
