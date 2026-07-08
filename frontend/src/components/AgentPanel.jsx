@@ -5,7 +5,6 @@ import AgentCard from "./AgentCard";
 import Timeline from "./Timeline";
 import WorkflowGraph from "./WorkflowGraph";
 import FileExplorer from "./FileExplorer";
-import Terminal from "./Terminal";
 import ResourceDashboard from "./ResourceDashboard";
 
 export default function AgentPanel({
@@ -54,8 +53,6 @@ export default function AgentPanel({
         <Timeline events={events} />
 
         <FileExplorer files={files} />
-
-        <Terminal logs={logs} />
 
         {Object.values(agents).map(
           (agent) => (
