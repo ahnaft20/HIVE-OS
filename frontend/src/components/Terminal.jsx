@@ -1,52 +1,81 @@
-export default function Terminal({
+import { useEffect, useState } from "react";
 
-    logs=[],
+export default function Terminal({ logs = [] }) {
 
-}){
+  const [displayLogs, setDisplayLogs] = useState([]);
 
-    return(
+  useEffect(() => {
 
-        <div className="rounded-2xl border border-slate-700 bg-black p-5">
+    if (logs.length > 0) {
+      setDisplayLogs(logs);
+      return;
+    }
 
-            <h3 className="text-green-400 font-semibold mb-4">
+    const demoLogs = [
+      "[Research] Starting mission...",
+      "✔ Research Complete",
+      "[Engineer] Designing system...",
+      "✔ Architecture Generated",
+      "[Designer] Creating UI...",
+      "✔ UI Completed",
+      "[Documentation] Writing documentation...",
+      "✔ Documentation Ready",
+      "[QA] Running review...",
+      "✔ QA Passed",
+      "[CEO] Final approval...",
+      "✔ Mission Approved",
+    ];
 
-                Live Terminal
+    setDisplayLogs([]);
 
-            </h3>
+    let index = 0;
 
-            <div className="font-mono text-sm space-y-2 max-h-56 overflow-y-auto">
+    const timer = setInterval(() => {
 
-                {logs.length===0 &&(
+      setDisplayLogs((prev) => [
+        ...prev,
+        demoLogs[index],
+      ]);
 
-                    <div className="text-slate-500">
+      index++;
 
-                        Waiting for execution...
+      if (index >= demoLogs.length) {
+        clearInterval(timer);
+      }
 
-                    </div>
+    }, 450);
 
-                )}
+    return () => clearInterval(timer);
 
-                {logs.map(
+  }, [logs]);
 
-                    (log,index)=>(
+  return (
 
-                        <div
-                            key={index}
-                            className="text-green-400"
-                        >
+    <div className="rounded-2xl border border-slate-700 bg-black p-5">
 
-                            {log}
+      <h3 className="text-green-400 font-semibold mb-4">
 
-                        </div>
+        Live Terminal
 
-                    )
+      </h3>
 
-                )}
+      <div className="font-mono text-sm space-y-2 max-h-56 overflow-y-auto">
 
-            </div>
+        {displayLogs.map((log, index) => (
 
-        </div>
+          <div
+            key={index}
+            className="text-green-400"
+          >
+            {log}
+          </div>
 
-    )
+        ))}
+
+      </div>
+
+    </div>
+
+  );
 
 }
