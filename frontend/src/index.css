@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+body{
+  background:#050816;
+  font-family:Inter,sans-serif;
+}
+
+*{
+  scrollbar-width:thin;
+  scrollbar-color:#7c3aed transparent;
+}
+
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#7c3aed;
+  border-radius:999px;
+}
+
+button{
+  transition:.25s ease;
+}
+
+textarea{
+  transition:.25s ease;
+}
+
+@keyframes fadeInUp {
+
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}

@@ -1,0 +1,31 @@
+{
+    "nodes": [
+        "Research",
+        "Engineering",
+        "Design",
+        "Documentation",
+        "Leader"
+    ],
+    "edges": [
+        {
+            "source": "Research",
+            "target": "Engineering",
+            "relation": "supports"
+        },
+        {
+            "source": "Engineering",
+            "target": "Design",
+            "relation": "influences"
+        },
+        {
+            "source": "Design",
+            "target": "Documentation",
+            "relation": "documents"
+        },
+        {
+            "source": "Documentation",
+            "target": "Leader",
+            "relation": "reports_to"
+        }
+    ]
+}
