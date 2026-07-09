@@ -75,8 +75,6 @@ def orchestrate(user_prompt):
 
     stream = StreamEngine()
 
-    confidence = ConfidenceEngine()
-
     router = ModelRouter()
 
     factory = AgentFactory()
@@ -233,6 +231,13 @@ def home():
             "",
             "",
         )
+
+    # ==================== MISSING: Wait for all parallel tasks to finish (this was the fix) ====================
+    research = research_future.result()
+    engineer = engineer_future.result()
+    designer = designer_future.result()
+    documentation = documentation_future.result()
+    qa = qa_future.result()
 
     debate = execute_with_retry(
         "Debate",
