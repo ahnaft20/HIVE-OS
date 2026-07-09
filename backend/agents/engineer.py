@@ -67,7 +67,7 @@ Stay under 600 words.
 """
 
 
-def run(user_prompt):
+def run(user_prompt, *args):
 
     return ask_llm(
 

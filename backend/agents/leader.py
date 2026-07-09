@@ -73,7 +73,7 @@ Think like the CEO of a software company.
 """
 
 
-def run(user_prompt):
+def run(user_prompt, *args):
 
     return ask_llm(
 
