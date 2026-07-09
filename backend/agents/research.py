@@ -1,4 +1,4 @@
-import ollama
+from core.fireworks_client import ask_llm
 
 
 SYSTEM_PROMPT = """
@@ -67,30 +67,10 @@ Stay under 500 words.
 
 def run(user_prompt):
 
-    response = ollama.chat(
+    return ask_llm(
 
-        model="llama3.2:3b",
+        system_prompt=SYSTEM_PROMPT,
 
-        messages=[
-
-            {
-
-                "role": "system",
-
-                "content": SYSTEM_PROMPT,
-
-            },
-
-            {
-
-                "role": "user",
-
-                "content": user_prompt,
-
-            },
-
-        ],
+        user_prompt=user_prompt,
 
     )
-
-    return response["message"]["content"]
