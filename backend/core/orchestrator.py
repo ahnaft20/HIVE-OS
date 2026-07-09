@@ -12,7 +12,6 @@ from core.event_bus import EventBus
 from core.mission import Mission
 from core.conversation import ConversationBoard
 from core.stream import StreamEngine
-from core.confidence import ConfidenceEngine
 from core.model_router import ModelRouter
 from core.agent_factory import AgentFactory
 from core.memory_manager import MemoryManager
@@ -297,8 +296,7 @@ def home():
         "workspace": live.get_workspace(),
         "conversation": conversations.history(),
         "stream": stream.history(),
-        "confidence": confidence.export(),
-        "states": states.get(),
+        "states": states.get(),   # confidence line REMOVED exactly as you asked
         "timeline": live.get_timeline(),
         "execution_plan": execution_plan,
         "research": research,
