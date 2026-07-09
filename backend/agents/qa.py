@@ -1,4 +1,4 @@
-import ollama
+from core.fireworks_client import ask_llm
 
 
 SYSTEM_PROMPT = """
@@ -22,21 +22,17 @@ Your job is to find mistakes before the project reaches the CEO.
 Your response MUST follow EXACTLY this format.
 
 # QA Summary
-
 Give a short overview.
 
 # Strengths
-
 What was done well.
 
 # Weaknesses
-
 Missing requirements.
 Poor decisions.
 Unclear areas.
 
 # Risks
-
 Security
 Scalability
 Performance
@@ -44,17 +40,14 @@ Maintainability
 User Experience
 
 # Recommended Fixes
-
 List improvements.
 
 # Final Verdict
-
 APPROVED
 or
 NEEDS REVISION
 
 # Confidence Score
-
 Give a score out of 100.
 
 DO NOT summarize previous departments.
@@ -67,63 +60,12 @@ Stay under 500 words.
 """
 
 
-def run(
-    user_prompt,
-    research,
-    engineer,
-    designer,
-):
+def run(user_prompt):
 
-    prompt = f"""
-USER REQUEST
+    return ask_llm(
 
-{user_prompt}
+        system_prompt=SYSTEM_PROMPT,
 
-
-====================
-
-RESEARCH REPORT
-
-{research}
-
-
-====================
-
-ENGINEERING REPORT
-
-{engineer}
-
-
-====================
-
-DESIGN REPORT
-
-{designer}
-
-
-Review every department.
-Do NOT redesign the project.
-Only perform quality assurance.
-"""
-
-    response = ollama.chat(
-
-        model="llama3.2:3b",
-
-        messages=[
-
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT,
-            },
-
-            {
-                "role": "user",
-                "content": prompt,
-            },
-
-        ],
+        user_prompt=user_prompt,
 
     )
-
-    return response["message"]["content"]
