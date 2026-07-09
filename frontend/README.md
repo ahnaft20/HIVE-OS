@@ -8,6 +8,14 @@ Built for the **AMD Developer Hackathon Act II**.
 
 ---
 
+## Why HIVE OS?
+
+Traditional AI assistants rely on a single model to solve every task.
+
+HIVE OS instead simulates a real software company, where specialized AI departments collaborate under the supervision of a CEO agent to produce structured, high-quality software planning.
+
+---
+
 # ✨ Features
 
 - 🧠 Research Agent
@@ -17,18 +25,17 @@ Built for the **AMD Developer Hackathon Act II**.
 - 🧪 QA Agent
 - 👑 CEO Agent (Executive Decision Maker)
 
-Additional capabilities:
+### Additional capabilities
 
 - Live Agent Dashboard
-- Workflow Visualization
-- Activity Timeline
-- Project Generator
-- File Explorer
-- Terminal Logs
-- Dynamic Resource Dashboard
-- Recovery System
+- Parallel Agent Execution
+- Automatic Retry & Recovery
 - Memory System
-- Modular Architecture
+- Dynamic Project Generator
+- Real-time Timeline
+- Workflow Visualization
+- Resource Monitoring
+- Modular Plugin Architecture
 
 ---
 
@@ -56,6 +63,21 @@ Additional capabilities:
 
 ---
 
+## AI Workflow
+
+Each department operates as an independent AI agent with a specialized responsibility.
+
+- CEO Agent coordinates the workflow.
+- Research Agent analyzes the problem.
+- Engineering Agent designs the technical architecture.
+- Design Agent plans the UI/UX.
+- Documentation Agent prepares technical documentation.
+- QA Agent validates the proposed solution.
+
+All agents communicate through a centralized orchestration engine powered by Fireworks AI.
+
+---
+
 # 🚀 Tech Stack
 
 ### Frontend
@@ -69,35 +91,55 @@ Additional capabilities:
 
 - FastAPI
 - Python
-- Ollama
+- Fireworks AI API
 
 ### AI
 
-- Llama 3.2
+- Fireworks AI
+- DeepSeek V4 Flash
 - Multi-Agent Architecture
 
 ---
 
-# 📂 Project Structure
+# 🔥 Fireworks AI Integration
+
+HIVE OS uses Fireworks AI as its inference backend.
+
+Each department agent communicates with Fireworks AI through a shared client, enabling scalable cloud inference for research, engineering, design, documentation, QA, and executive decision-making.
+
+This architecture provides fast, scalable inference while allowing every specialized agent to collaborate through a centralized orchestration engine.
+
+---
+
+# 📂 Repository
 
 ```
-frontend/
 backend/
-generated_projects/
+frontend/
 agents/
 core/
+generated_projects/
+memory/
 ```
 
 ---
 
 # ⚙️ Installation
 
+## Clone
+
+```bash
+git clone <repo>
+
+cd HIVE-OS
+```
+
 ## Backend
 
 ```bash
 cd backend
 
-venv\Scripts\activate
+pip install -r requirements.txt
 
 uvicorn main:app --reload
 ```
@@ -139,8 +181,8 @@ Add screenshots here before submission.
 
 # 🎯 Future Roadmap
 
-- Larger language models
-- Cloud inference
+- Support additional Fireworks-hosted models
+- Cloud inference enhancements
 - Real code generation
 - Plugin marketplace
 - Multi-model routing
