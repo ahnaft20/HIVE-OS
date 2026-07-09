@@ -1,4 +1,4 @@
-import ollama
+from core.fireworks_client import ask_llm
 
 
 SYSTEM_PROMPT = """
@@ -74,50 +74,12 @@ Stay under 600 words.
 """
 
 
-def run(user_prompt, research_output, engineer_output):
+def run(user_prompt):
 
-    prompt = f"""
-USER REQUEST
+    return ask_llm(
 
-{user_prompt}
+        system_prompt=SYSTEM_PROMPT,
 
-
-RESEARCH REPORT
-
-{research_output}
-
-
-ENGINEERING PLAN
-
-{engineer_output}
-
-
-Using the information above,
-
-create ONLY the UI/UX design.
-
-Do NOT repeat the research.
-Do NOT repeat the engineering report.
-"""
-
-    response = ollama.chat(
-
-        model="llama3.2:3b",
-
-        messages=[
-
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT,
-            },
-
-            {
-                "role": "user",
-                "content": prompt,
-            },
-
-        ],
+        user_prompt=user_prompt,
 
     )
-
-    return response["message"]["content"]
