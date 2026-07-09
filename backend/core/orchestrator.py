@@ -93,7 +93,7 @@ def orchestrate(user_prompt):
     organization = Organization()
     generator = ProjectGenerator()
     editor = FileEditor()
-    executor = CodeExecutor()
+    executor = CodeExecutor()   # Keep exactly as it is
     tester = TestRunner()
     fixer = BugFixer()
     git = GitManager()
@@ -178,9 +178,9 @@ def home():
     stream.push("Leader", "Docker environment generated.")
 
     # ==================== RUN AGENTS (PARALLEL EXECUTION - ThreadPoolExecutor) ====================
-    with ThreadPoolExecutor(max_workers=6) as executor:
+    with ThreadPoolExecutor(max_workers=6) as pool:
 
-        research_future = executor.submit(
+        research_future = pool.submit(
             execute_with_retry,
             "Research",
             research_agent,
@@ -189,7 +189,7 @@ def home():
             user_prompt,
         )
 
-        engineer_future = executor.submit(
+        engineer_future = pool.submit(
             execute_with_retry,
             "Engineer",
             engineer_agent,
@@ -199,7 +199,7 @@ def home():
             "",
         )
 
-        designer_future = executor.submit(
+        designer_future = pool.submit(
             execute_with_retry,
             "Designer",
             designer_agent,
@@ -210,7 +210,7 @@ def home():
             "",
         )
 
-        documentation_future = executor.submit(
+        documentation_future = pool.submit(
             execute_with_retry,
             "Documentation",
             documentation_agent,
@@ -222,7 +222,7 @@ def home():
             "",
         )
 
-        qa_future = executor.submit(
+        qa_future = pool.submit(
             execute_with_retry,
             "QA",
             qa_agent,
@@ -233,12 +233,6 @@ def home():
             "",
             "",
         )
-
-        research = research_future.result()
-        engineer = engineer_future.result()
-        designer = designer_future.result()
-        documentation = documentation_future.result()
-        qa = qa_future.result()
 
     debate = execute_with_retry(
         "Debate",
