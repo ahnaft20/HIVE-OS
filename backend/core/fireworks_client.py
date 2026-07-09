@@ -13,21 +13,27 @@ MODEL = "accounts/fireworks/models/deepseek-v4-flash"
 
 
 def ask_llm(system_prompt: str, user_prompt: str):
+    try:
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=[
+                {
+                    "role": "system",
+                    "content": system_prompt,
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt,
+                },
+            ],
+            temperature=0.7,
+            max_tokens=1500,
+        )
 
-    response = client.chat.completions.create(
-        model=MODEL,
-        messages=[
-            {
-                "role": "system",
-                "content": system_prompt,
-            },
-            {
-                "role": "user",
-                "content": user_prompt,
-            },
-        ],
-        temperature=0.7,
-        max_tokens=1500,
-    )
+        return response.choices[0].message.content
 
-    return response.choices[0].message.content
+    except Exception as e:
+        print("========== FIREWORKS ERROR ==========")
+        print(repr(e))
+        print("=====================================")
+        raise
