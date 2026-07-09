@@ -1,5 +1,4 @@
-import ollama
-import json
+from core.fireworks_client import ask_llm
 
 SYSTEM_PROMPT = """
 You are the Planning Engine of HIVE OS.
@@ -62,62 +61,7 @@ PREVIOUS PROJECT MEMORY
 ========================
 """
 
-    response = ollama.chat(
-
-        model="llama3.2:3b",
-
-        messages=[
-
-            {
-
-                "role": "system",
-
-                "content": SYSTEM_PROMPT,
-
-            },
-
-            {
-
-                "role": "user",
-
-                "content": user_prompt + previous_context_text,
-
-            },
-
-        ],
-
+    return ask_llm(
+        system_prompt=SYSTEM_PROMPT,
+        user_prompt=user_prompt,
     )
-
-    try:
-
-        return json.loads(
-
-            response["message"]["content"]
-
-        )
-
-    except Exception:
-
-        return {
-
-            "research": True,
-
-            "backend": True,
-
-            "frontend": True,
-
-            "database": True,
-
-            "devops": False,
-
-            "security": False,
-
-            "designer": True,
-
-            "documentation": True,
-
-            "qa": True,
-
-            "product": True,
-
-        }
