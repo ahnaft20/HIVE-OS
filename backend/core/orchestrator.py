@@ -232,7 +232,7 @@ def home():
             "",
         )
 
-    # ==================== MISSING: Wait for all parallel tasks to finish (this was the fix) ====================
+    # ==================== MISSING: Wait for all parallel tasks to finish ====================
     research = research_future.result()
     engineer = engineer_future.result()
     designer = designer_future.result()
@@ -249,11 +249,7 @@ def home():
         designer,
     )
 
-    # ==================== DISABLED SECTIONS (Reflection, Peer Review, Replanner) ====================
-    # reflection = execute_with_retry(...)
-    # peer_review = execute_with_retry(...)
-    # replan = execute_with_retry(...)
-
+    # ==================== DISABLED SECTIONS ====================
     reflection = None
     peer_review = None
     replan = None
