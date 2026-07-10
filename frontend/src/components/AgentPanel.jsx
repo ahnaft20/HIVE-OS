@@ -45,7 +45,7 @@ export default function AgentPanel({
           model={modelName}
           executionTime={executionTime}
           projects={files.length}
-          backend="Ollama"
+          backend="Fireworks AI"
         />
 
         <WorkflowGraph agents={agents} />

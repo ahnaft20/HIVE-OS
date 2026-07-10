@@ -48,7 +48,7 @@ export default function Header() {
 
           <span className="text-sm">
 
-            Llama 3.2
+            DeepSeek V4 Flash
 
           </span>
 

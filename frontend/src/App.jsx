@@ -28,7 +28,7 @@ export default function App() {
   // ✅ NEW STATE — Execution timing, confidence, and model (for AgentPanel)
   const [executionTime, setExecutionTime] = useState("0.0 s");
   const [confidence, setConfidence] = useState(95);
-  const [modelName, setModelName] = useState("Llama 3.2");
+  const [modelName, setModelName] = useState("DeepSeek V4 Flash");
 
   const {
     updateAgent,
@@ -99,7 +99,7 @@ export default function App() {
       );
 
       // ✅ Model name from backend response (or fallback)
-      setModelName(data.model || "Llama 3.2");
+      setModelName(data.model || "DeepSeek V4 Flash");
 
       updateAgent("research", "Working");
       await wait(600);
