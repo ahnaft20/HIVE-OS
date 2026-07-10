@@ -168,17 +168,6 @@ npm run dev
 
 ---
 
-# 📸 Screenshots
-
-Add screenshots here before submission.
-
-- Dashboard
-- Workflow Graph
-- Final Report
-- Agent Collaboration
-
----
-
 # 🎯 Future Roadmap
 
 - Support additional Fireworks-hosted models
