@@ -1,4 +1,4 @@
-import ollama
+from core.llm_client import ask_llm
 
 SYSTEM_PROMPT = """
 You are the Chief Reflection Officer of HIVE OS.
@@ -106,18 +106,7 @@ Focus only on future improvements.
 Do NOT repeat previous reports.
 """
 
-    response = ollama.chat(
-        model="llama3.2:3b",
-        messages=[
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT,
-            },
-            {
-                "role": "user",
-                "content": prompt,
-            },
-        ],
+    return ask_llm(
+        SYSTEM_PROMPT,
+        prompt,
     )
-
-    return response["message"]["content"]
