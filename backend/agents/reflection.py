@@ -1,4 +1,4 @@
-from core.llm_client import ask_llm
+from core.fireworks_client import ask_llm
 
 SYSTEM_PROMPT = """
 You are the Chief Reflection Officer of HIVE OS.

@@ -1,4 +1,5 @@
-import ollama
+from core.fireworks_client import ask_llm
+
 
 SYSTEM_PROMPT = """
 You are the Senior Peer Review Board of HIVE OS.
@@ -92,18 +93,7 @@ Focus only on consistency and duplication.
 Do NOT redesign the project.
 """
 
-    response = ollama.chat(
-        model="llama3.2:3b",
-        messages=[
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT,
-            },
-            {
-                "role": "user",
-                "content": prompt,
-            },
-        ],
+    return ask_llm(
+        system_prompt=SYSTEM_PROMPT,
+        user_prompt=prompt,
     )
-
-    return response["message"]["content"]
