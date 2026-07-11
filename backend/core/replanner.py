@@ -1,4 +1,4 @@
-import ollama
+from core.fireworks_client import ask_llm
 
 
 SYSTEM_PROMPT = """
@@ -24,17 +24,12 @@ Output:
 
 
 def run(
-
     user_prompt,
-
     execution_plan,
-
     failure,
-
 ):
 
     prompt = f"""
-
 User Request
 
 {user_prompt}
@@ -50,27 +45,9 @@ Original Plan
 Failure
 
 {failure}
-
 """
 
-    response = ollama.chat(
-
-        model="llama3.2:3b",
-
-        messages=[
-
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT,
-            },
-
-            {
-                "role": "user",
-                "content": prompt,
-            },
-
-        ],
-
+    return ask_llm(
+        SYSTEM_PROMPT,
+        prompt,
     )
-
-    return response["message"]["content"]
