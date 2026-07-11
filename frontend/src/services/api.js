@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:8000";
+const API = "https://hive-os-backend.onrender.com";
 
 export async function sendMessage(message) {
   const res = await fetch(`${API}/chat`, {
